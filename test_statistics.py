@@ -1,5 +1,5 @@
 from unittest import TestCase
-from statistics import variance, stdev
+from statistics import variance, stdev, average
 from math import sqrt
 
 
@@ -26,8 +26,17 @@ class StatisticsTest(TestCase):
         # variance([0, 0.5, 1, 1.5, 2.0]) is 0.5
         self.assertEqual(sqrt(0.5), stdev([0, 0.5, 1, 1.5, 2]))
 
+    def test_mustHaveValues(self):
+        """Test that average([]) raises a ValueError"""
+        with self.assertRaises(ValueError) as e:
+            average([])
+        self.assertEqual(str(e.exception),
+                         "List must contain at least one value")
 
-if __name__ == '__main__':
-    import unittest
-    unittest.main(verbosity=1)
+    def test_listHaveValues(self):
+        """Test that variance([]) raises a ValueError"""
+        with self.assertRaises(ValueError) as e:
+            variance([])
+        self.assertEqual(str(e.exception),
+                         "List must contain at least one value")
 
